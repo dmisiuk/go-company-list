@@ -16,7 +16,7 @@ type Company struct {
 	Id          interface{} `bson:"_id"`
 	Name        string `bson:"name"`
 	Email       string `bson:"email"`
-	clientCount int
+	ClientCount int
 }
 
 var companyColl, clientColl *mgo.Collection
@@ -95,15 +95,17 @@ func getAllCompanies() []Company {
 	if err != nil {
 		log.Fatal(err)
 	}
+	companiesWithClients := make([]Company,0)
 	for _, company := range allCompanies {
 		idStr := getIdAsString(company)
 		countOfClients, err := countClients(idStr)
 		if err != nil {
 			log.Fatal(err)
 		}
-		company.clientCount = countOfClients
+		company.ClientCount = countOfClients
+		companiesWithClients = append(companiesWithClients, company)
 	}
-	return allCompanies
+	return companiesWithClients
 }
 
 func getIdAsString(company Company) string {
