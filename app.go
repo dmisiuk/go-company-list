@@ -5,6 +5,8 @@ import (
 	"log"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
+	"os"
+	"flag"
 )
 
 type Person struct {
@@ -13,6 +15,13 @@ type Person struct {
 }
 
 func main() {
+	dbName := flag.String("db", "test", "mongo database")
+	flag.Parse()
+	appArgs := os.Args[1:]
+	fmt.Println(appArgs)
+
+	fmt.Println("using database", *dbName)
+
 	session, err := mgo.Dial("localhost:27017")
 	if err != nil {
 		panic(err)
@@ -22,7 +31,7 @@ func main() {
 	// Optional. Switch the session to a monotonic behavior.
 	session.SetMode(mgo.Monotonic, true)
 
-	c := session.DB("test").C("people")
+	c := session.DB(*dbName).C("people")
 	err = c.Insert(&Person{"Ale", "+55 53 8116 9639"},
 		&Person{"Cla", "+55 53 8402 8510"})
 	if err != nil {
