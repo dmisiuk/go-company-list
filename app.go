@@ -6,6 +6,8 @@ import (
 	"gopkg.in/mgo.v2"
 	"flag"
 	"gopkg.in/mgo.v2/bson"
+	"net/http"
+	"io"
 )
 
 type Company struct {
@@ -40,11 +42,20 @@ func main() {
 	companyColl = session.DB(*dbName).C(companyCollName)
 	clientColl = session.DB(*dbName).C(clientCollName)
 
-	if !*isHttp {
+	if *isHttp {
+		http.HandleFunc("/", HelloServer)
+		log.Println("starting http server on 8888")
+		log.Fatal(http.ListenAndServe("localhost:8888", nil))
+	} else {
 		doAsCLI()
 	}
 
 }
+
+func HelloServer(w http.ResponseWriter, req *http.Request) {
+	io.WriteString(w, "hello, world!\n")
+}
+
 func doAsCLI() {
 	count := countCompanies()
 	allCompanies := getAllCompanies()
