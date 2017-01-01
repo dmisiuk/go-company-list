@@ -66,6 +66,7 @@ func serveHttp(w http.ResponseWriter, req *http.Request) {
 		if e != nil {
 			io.WriteString(w, s)
 		} else {
+			w.Header().Add("Content-type", "application/json")
 			w.Write(b)
 		}
 	default:
