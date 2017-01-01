@@ -8,6 +8,8 @@ import (
 	"gopkg.in/mgo.v2/bson"
 	"net/http"
 	"io"
+	"strconv"
+	"encoding/json"
 )
 
 type Company struct {
@@ -43,7 +45,7 @@ func main() {
 	clientColl = session.DB(*dbName).C(clientCollName)
 
 	if *isHttp {
-		http.HandleFunc("/", HelloServer)
+		http.HandleFunc("/", serveHttp)
 		log.Println("starting http server on 8888")
 		log.Fatal(http.ListenAndServe("localhost:8888", nil))
 	} else {
@@ -52,10 +54,20 @@ func main() {
 
 }
 
-func HelloServer(w http.ResponseWriter, req *http.Request) {
+func serveHttp(w http.ResponseWriter, req *http.Request) {
 	switch req.RequestURI {
 	case "/hello":
 		io.WriteString(w, "hello, world!\n")
+	case "/companies":
+		io.WriteString(w, "count of companies: "+strconv.Itoa(countCompanies()))
+	case "/companies/json":
+		b, e := json.Marshal(getAllCompanies())
+		var s string
+		if e != nil {
+			io.WriteString(w, s)
+		} else {
+			w.Write(b)
+		}
 	default:
 		io.WriteString(w, "default page of go http server")
 	}
