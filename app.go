@@ -53,7 +53,13 @@ func main() {
 }
 
 func HelloServer(w http.ResponseWriter, req *http.Request) {
-	io.WriteString(w, "hello, world!\n")
+	switch req.RequestURI {
+	case "/hello":
+		io.WriteString(w, "hello, world!\n")
+	default:
+		io.WriteString(w, "default page of go http server")
+	}
+
 }
 
 func doAsCLI() {
