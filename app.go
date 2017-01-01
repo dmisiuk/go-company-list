@@ -5,11 +5,13 @@ import (
 	"log"
 	"gopkg.in/mgo.v2"
 	"flag"
+	"gopkg.in/mgo.v2/bson"
 )
 
-type Person struct {
-	Name  string
-	Phone string
+type Company struct {
+	Id interface{} `bson:"_id"`
+	Name string `bson:"name"`
+	Email string `bson:"email"`
 }
 
 func main() {
@@ -36,19 +38,15 @@ func main() {
 	}
 	fmt.Println("count of companies:", count)
 
-	//
-	//c.Find()
-	//err = c.Insert(&Person{"Ale", "+55 53 8116 9639"},
-	//	&Person{"Cla", "+55 53 8402 8510"})
-	//if err != nil {
-	//	log.Fatal(err)
-	//}
-	//
-	//result := Person{}
-	//err = c.Find(bson.M{"name": "Ale"}).One(&result)
-	//if err != nil {
-	//	log.Fatal(err)
-	//}
-	//
-	//fmt.Println("Phone:", result.Phone)
+	allCompanies := make([]Company,0)
+
+	err = c.Find(bson.M{}).All(&allCompanies)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, company := range allCompanies {
+		fmt.Println(company)
+	}
+
 }
