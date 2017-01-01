@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"log"
 	"gopkg.in/mgo.v2"
-	"gopkg.in/mgo.v2/bson"
-	"os"
 	"flag"
 )
 
@@ -17,12 +15,11 @@ type Person struct {
 func main() {
 	dbName := flag.String("db", "test", "mongo database")
 	flag.Parse()
-	appArgs := os.Args[1:]
-	fmt.Println(appArgs)
 
-	fmt.Println("using database", *dbName)
+	log.Println("using database", *dbName)
 
-	session, err := mgo.Dial("localhost:27017")
+	mongoUrl := "localhost:27017"
+	session, err := mgo.Dial(mongoUrl)
 	if err != nil {
 		panic(err)
 	}
@@ -31,18 +28,27 @@ func main() {
 	// Optional. Switch the session to a monotonic behavior.
 	session.SetMode(mgo.Monotonic, true)
 
-	c := session.DB(*dbName).C("people")
-	err = c.Insert(&Person{"Ale", "+55 53 8116 9639"},
-		&Person{"Cla", "+55 53 8402 8510"})
+	companyCollName:= "company"
+	c := session.DB(*dbName).C(companyCollName)
+	count, err := c.Count()
 	if err != nil {
 		log.Fatal(err)
 	}
+	fmt.Println("count of companies:", count)
 
-	result := Person{}
-	err = c.Find(bson.M{"name": "Ale"}).One(&result)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Println("Phone:", result.Phone)
+	//
+	//c.Find()
+	//err = c.Insert(&Person{"Ale", "+55 53 8116 9639"},
+	//	&Person{"Cla", "+55 53 8402 8510"})
+	//if err != nil {
+	//	log.Fatal(err)
+	//}
+	//
+	//result := Person{}
+	//err = c.Find(bson.M{"name": "Ale"}).One(&result)
+	//if err != nil {
+	//	log.Fatal(err)
+	//}
+	//
+	//fmt.Println("Phone:", result.Phone)
 }
