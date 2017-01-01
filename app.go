@@ -1,21 +1,21 @@
 package main
 
 import (
-	"fmt"
-	"log"
-	"gopkg.in/mgo.v2"
-	"flag"
-	"gopkg.in/mgo.v2/bson"
-	"net/http"
-	"io"
-	"strconv"
 	"encoding/json"
+	"flag"
+	"fmt"
+	"gopkg.in/mgo.v2"
+	"gopkg.in/mgo.v2/bson"
+	"io"
+	"log"
+	"net/http"
+	"strconv"
 )
 
 type Company struct {
 	Id          interface{} `bson:"_id"`
-	Name        string `bson:"name"`
-	Email       string `bson:"email"`
+	Name        string      `bson:"name"`
+	Email       string      `bson:"email"`
 	ClientCount int
 }
 
@@ -96,7 +96,7 @@ func getAllCompanies() []Company {
 	if err != nil {
 		log.Fatal(err)
 	}
-	companiesWithClients := make([]Company,0)
+	companiesWithClients := make([]Company, 0)
 	for _, company := range allCompanies {
 		idStr := getIdAsString(company)
 		countOfClients, err := countClients(idStr)
