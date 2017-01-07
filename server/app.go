@@ -48,11 +48,15 @@ func main() {
 	if *isHttp {
 		http.HandleFunc("/", serveHttp)
 		log.Println("starting http server on 8888")
-		log.Fatal(http.ListenAndServe("localhost:8888", nil))
+		log.Fatal(http.ListenAndServe("localhost:8888", fileServer()))
 	} else {
 		doAsCLI()
 	}
 
+}
+
+func fileServer() http.Handler {
+	return http.FileServer(http.Dir("../public"))
 }
 
 func serveHttp(w http.ResponseWriter, req *http.Request) {
