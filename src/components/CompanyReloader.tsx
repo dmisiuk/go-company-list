@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Button, Popover, Tooltip } from 'reactstrap';
 
 export interface CompanyReloaderProps {
     onReload: () => any;
@@ -9,9 +10,9 @@ export class CompanyReloader extends React.Component<CompanyReloaderProps, {}> {
         const {onReload} = this.props;
         return <div>
             <p>
-                <button onClick={onReload}>
+                <Button color="warning" onClick={onReload}>
                     reload
-                </button>
+                </Button>
             </p>
         </div>;
     }

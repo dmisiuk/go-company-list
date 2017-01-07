@@ -9,8 +9,10 @@ export interface CompanyProps {
 export class Company extends React.Component<CompanyProps, {}> {
     render() {
         const {Id, Name, ClientCount} = this.props;
-        return <div>
-            <h2>{Id} - {Name} - {ClientCount}</h2>
-        </div>;
+        return <tr>
+            <td>{Id}</td>
+            <td>{Name}</td>
+            <td>{ClientCount}</td>
+        </tr>;
     }
 }
