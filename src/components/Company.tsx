@@ -1,16 +1,16 @@
 import * as React from "react";
 
 export interface CompanyProps {
-    id: string;
-    name: string;
-    clientCount: number;
+    Id: string;
+    Name: string;
+    ClientCount: number;
 }
 
 export class Company extends React.Component<CompanyProps, {}> {
     render() {
-        const {id, name, clientCount} = this.props;
+        const {Id, Name, ClientCount} = this.props;
         return <div>
-            <h2>{id} - {name} - {clientCount}</h2>
+            <h2>{Id} - {Name} - {ClientCount}</h2>
         </div>;
     }
 }

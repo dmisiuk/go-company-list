@@ -14,7 +14,7 @@ export class CompanyList extends React.Component<CompanyListProps, {}> {
             :
             <ul>
             {companies.map(company =>
-             <Company id={company.id} name={company.name} clientCount={company.clientCount}/>
+             <Company Id={company.Id} Name={company.Name} ClientCount={company.ClientCount}/>
             )}
         </ul>
     }
