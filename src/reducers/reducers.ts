@@ -1,5 +1,5 @@
 import {Action} from "../actions/actions";
-import {INCREMENT, DECREMENT, ADD_COMPANY} from "../actions/action_types"
+import {INCREMENT, DECREMENT, ADD_COMPANY, RELOAD_COMPANY_LIST} from "../actions/action_types"
 import * as Immutable from "immutable";
 import {CompanyProps} from "../components/Company";
 
@@ -18,6 +18,10 @@ export function countReducer(state: Immutable.Map<string, any> = initialState, a
             return state.update("counter", n => n - action.payload);
         case ADD_COMPANY:
             return state.update("companies", l => l.push(action.payload));
+        case RELOAD_COMPANY_LIST:
+            console.info("reload company list");
+            // todo
+            return state;
         default:
             return state
     }

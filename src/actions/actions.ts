@@ -1,4 +1,4 @@
-import {INCREMENT, DECREMENT, ADD_COMPANY} from "./action_types";
+import {INCREMENT, DECREMENT, ADD_COMPANY, RELOAD_COMPANY_LIST} from "./action_types";
 import {CompanyProps} from "../components/Company";
 
 export interface Action<T> {
@@ -18,4 +18,8 @@ export function decrementAction(): Action<number> {
 
 export function addCompanyAction(company: CompanyProps): Action<CompanyProps> {
     return {type: ADD_COMPANY, payload: company}
+}
+
+export function companyReloadAction(): Action<any> {
+    return {type: RELOAD_COMPANY_LIST, payload: null}
 }
