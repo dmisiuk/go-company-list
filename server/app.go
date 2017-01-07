@@ -47,22 +47,23 @@ func main() {
 
 	if *isHttp {
 		http.HandleFunc("/", serveHttp)
+		http.HandleFunc("/dist/", serveStatic)
+		http.HandleFunc("/node_modules/", serveStatic)
 		log.Println("starting http server on 8888")
-		log.Fatal(http.ListenAndServe("localhost:8888", fileServer()))
+		log.Fatal(http.ListenAndServe("localhost:8888", nil))
 	} else {
 		doAsCLI()
 	}
 
 }
-
-func fileServer() http.Handler {
-	publicDir := http.Dir("../")
-	log.Println("listening folder:" + publicDir)
-	return http.FileServer(publicDir)
+func serveStatic(w http.ResponseWriter, req *http.Request) {
+	http.ServeFile(w, req, "../"+req.URL.Path[1:])
 }
 
 func serveHttp(w http.ResponseWriter, req *http.Request) {
 	switch req.RequestURI {
+	case "/":
+		http.ServeFile(w, req, "../index.html")
 	case "/hello":
 		io.WriteString(w, "hello, world!\n")
 	case "/companies":
