@@ -7,7 +7,7 @@ let initialState = Immutable.Map(
     {
         counter: 0,
         initial: 0,
-        companies: Immutable.List<CompanyProps>([{id: "0", name: "dvs", clientCount: 8}])
+        companies: Immutable.List<CompanyProps>([])
     });
 
 export function countReducer(state: Immutable.Map<string, any> = initialState, action: Action<any>) {
