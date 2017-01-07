@@ -1,4 +1,4 @@
-Billing based on go for SC
+Billing based on _golang_ for SC
 
 Dependencies:
 
@@ -7,3 +7,16 @@ Dependencies:
 Run as http server:
 
     #: cd server && go run app.go -http=true
+    
+Prepare front-end:
+    
+    #: npm i
+    #: npm link webpack
+    
+Run webpack with watcher:
+
+    #: webpack --progress --colors --watch
+    
+TODO
+ 
+ * disable access to server and other technical files

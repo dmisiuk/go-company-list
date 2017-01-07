@@ -77,3 +77,14 @@ fabric.properties
 .idea/
 /go-billing
 go-billing
+
+
+#node.js
+
+.vscode/
+node_modules/
+dist/
+node_modules
+server/bin
+tmp/
+npm-debug.log

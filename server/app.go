@@ -56,7 +56,9 @@ func main() {
 }
 
 func fileServer() http.Handler {
-	return http.FileServer(http.Dir("../public"))
+	publicDir := http.Dir("../")
+	log.Println("listening folder:" + publicDir)
+	return http.FileServer(publicDir)
 }
 
 func serveHttp(w http.ResponseWriter, req *http.Request) {

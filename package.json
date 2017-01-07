@@ -1,0 +1,57 @@
+{
+  "name": "go-billing",
+  "version": "0.1.0",
+  "description": "billing based on mongo/go/react/redux",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npm i && npm link webpack && webpack && cd server && go build -o ./bin/server && ./bin/server",
+    "test": "npm i && npm link webpack && webpack && cd server && go test -cover && go build -o ./bin/server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blinkanalytics/typereact.git"
+  },
+  "keywords": [
+    "TypeScript",
+    "React",
+    "Go",
+    "Mongo",
+    "Redux",
+    "ReactNative"
+  ],
+  "author": "Damien Stanton",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/blinkanalytics/typereact/issues"
+  },
+  "homepage": "https://github.com/blinkanalytics/typereact#readme",
+  "dependencies": {
+    "@types/react": "^0.14.44",
+    "@types/react-dom": "^0.14.18",
+    "@types/react-redux": "^4.4.35",
+    "immutable": "^3.8.1",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "react-redux": "^5.0.1",
+    "redux": "^3.6.0"
+  },
+  "devDependencies": {
+    "jest-cli": "^16.0.2",
+    "redux-devtools": "^3.3.1",
+    "source-map-loader": "^0.1.5",
+    "ts-loader": "^1.0.0",
+    "typescript": "^2.0.9",
+    "webpack": "^1.13.3"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "<rootDir>/preprocessor.js"
+    },
+    "testRegex": "/__tests__/.*\\.(ts|tsx|js)$"
+  }
+}
