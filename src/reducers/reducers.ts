@@ -10,7 +10,7 @@ let initialState = Immutable.Map(
         companies: Immutable.List<CompanyProps>([])
     });
 
-export function countReducer(state: Immutable.Map<string, any> = initialState, action: Action<any>) {
+export function rootReducer(state: Immutable.Map<string, any> = initialState, action: Action<any>) {
     switch (action.type) {
         case INCREMENT:
             return state.update("counter", n => n + action.payload);

@@ -67,7 +67,7 @@ func serveHttp(w http.ResponseWriter, req *http.Request) {
 	case "/hello":
 		io.WriteString(w, "hello, world!\n")
 	case "/companies":
-		io.WriteString(w, "countReducer of companies: "+strconv.Itoa(countCompanies()))
+		io.WriteString(w, "count of companies: "+strconv.Itoa(countCompanies()))
 	case "/companies/json":
 		b, e := json.Marshal(getAllCompanies())
 		var s string
@@ -86,7 +86,7 @@ func serveHttp(w http.ResponseWriter, req *http.Request) {
 func doAsCLI() {
 	count := countCompanies()
 	allCompanies := getAllCompanies()
-	fmt.Println("countReducer of companies:", count)
+	fmt.Println("count of companies:", count)
 	for _, company := range allCompanies {
 		fmt.Println(company)
 	}
