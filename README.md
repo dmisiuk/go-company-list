@@ -16,7 +16,3 @@ Prepare front-end:
 Run webpack with watcher:
 
     #: webpack --progress --colors --watch
-    
-TODO
- 
- * disable access to server and other technical files
