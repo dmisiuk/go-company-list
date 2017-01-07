@@ -3,17 +3,23 @@
  */
 
 import {Action} from "../actions/actions";
-import {INCREMENT, DECREMENT} from "../actions/action_types"
+import {INCREMENT, DECREMENT, ADD_COMPANY} from "../actions/action_types"
 import * as Immutable from "immutable";
+import {CompanyProps} from "../components/Company";
 
-var initialState = Immutable.Map({counter: 0, initial: 0});
+let initialState = Immutable.Map(
+    {counter: 0,
+        initial: 0,
+        companies: Immutable.List<CompanyProps>([{id: "0", name: "dvs", clientCount: 8}])});
 
-export function count(state: Immutable.Map<string, any> = initialState, action: Action<number>) {
+export function countReducer(state: Immutable.Map<string, any> = initialState, action: Action<any>) {
     switch (action.type) {
         case INCREMENT:
             return state.update("counter", n => n + action.payload);
         case DECREMENT:
             return state.update("counter", n => n - action.payload);
+        case ADD_COMPANY:
+            return state.update("companies", l => l.push(action.payload));
         default:
             return state
     }
