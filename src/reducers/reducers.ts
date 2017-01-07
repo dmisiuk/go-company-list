@@ -22,10 +22,8 @@ export function rootReducer(state: Immutable.Map<string, any> = initialState, ac
         case ADD_COMPANY:
             return state.update("companies", l => l.push(action.payload));
         case RECEIVE_COMPANIES:
-            console.log("received companies", action.payload);
             return state.set("companies", action.payload);
         case REQUEST_COMPANIES:
-            console.log("start request company");
             return state;
         default:
             return state

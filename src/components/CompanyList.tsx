@@ -20,11 +20,14 @@ export class CompanyList extends React.Component<CompanyListProps, {}> {
                     <th>Id</th>
                     <th>Name</th>
                     <th>Client count</th>
+                    <th>Contract Id</th>
                 </tr>
                 </thead>
                 <tbody>
                 {companies.map(company =>
-                    <Company Id={company.Id} Name={company.Name} ClientCount={company.ClientCount}/>
+                    <Company Id={company.Id} Name={company.Name}
+                             ClientCount={company.ClientCount}
+                             ContractId={company.ContractId}/>
                 )}
                 </tbody>
             </Table>

@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"flag"
-	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -17,6 +16,7 @@ type Company struct {
 	Id          interface{} `bson:"_id"`
 	Name        string      `bson:"name"`
 	Email       string      `bson:"email"`
+	ContractId  int         `bson:"contractId"`
 	ClientCount int
 }
 
@@ -24,10 +24,7 @@ var companyColl, clientColl *mgo.Collection
 
 func main() {
 	dbName := flag.String("db", "test", "mongo database")
-	isHttp := flag.Bool("http", false, "run http server")
-
 	flag.Parse()
-
 	log.Println("using database", *dbName)
 
 	mongoUrl := "localhost:27017"
@@ -45,16 +42,11 @@ func main() {
 	companyColl = session.DB(*dbName).C(companyCollName)
 	clientColl = session.DB(*dbName).C(clientCollName)
 
-	if *isHttp {
-		http.HandleFunc("/", serveHttp)
-		http.HandleFunc("/dist/", serveStatic)
-		http.HandleFunc("/node_modules/", serveStatic)
-		log.Println("starting http server on 8888")
-		log.Fatal(http.ListenAndServe("localhost:8888", nil))
-	} else {
-		doAsCLI()
-	}
-
+	http.HandleFunc("/", serveHttp)
+	http.HandleFunc("/dist/", serveStatic)
+	http.HandleFunc("/node_modules/", serveStatic)
+	log.Println("starting http server on 8888")
+	log.Fatal(http.ListenAndServe("localhost:8888", nil))
 }
 func serveStatic(w http.ResponseWriter, req *http.Request) {
 	http.ServeFile(w, req, "../"+req.URL.Path[1:])
@@ -83,14 +75,6 @@ func serveHttp(w http.ResponseWriter, req *http.Request) {
 
 }
 
-func doAsCLI() {
-	count := countCompanies()
-	allCompanies := getAllCompanies()
-	fmt.Println("count of companies:", count)
-	for _, company := range allCompanies {
-		fmt.Println(company)
-	}
-}
 func countCompanies() int {
 	count, err := companyColl.Count()
 	if err != nil {
@@ -98,6 +82,7 @@ func countCompanies() int {
 	}
 	return count
 }
+
 func getAllCompanies() []Company {
 	allCompanies := make([]Company, 0)
 	err := companyColl.Find(bson.M{}).All(&allCompanies)
