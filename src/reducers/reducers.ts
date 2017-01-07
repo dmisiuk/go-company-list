@@ -1,16 +1,14 @@
-/**
- * @author Dzmitry Misiuk
- */
-
 import {Action} from "../actions/actions";
 import {INCREMENT, DECREMENT, ADD_COMPANY} from "../actions/action_types"
 import * as Immutable from "immutable";
 import {CompanyProps} from "../components/Company";
 
 let initialState = Immutable.Map(
-    {counter: 0,
+    {
+        counter: 0,
         initial: 0,
-        companies: Immutable.List<CompanyProps>([{id: "0", name: "dvs", clientCount: 8}])});
+        companies: Immutable.List<CompanyProps>([{id: "0", name: "dvs", clientCount: 8}])
+    });
 
 export function countReducer(state: Immutable.Map<string, any> = initialState, action: Action<any>) {
     switch (action.type) {
